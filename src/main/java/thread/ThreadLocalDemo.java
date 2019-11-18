@@ -79,7 +79,7 @@ public class ThreadLocalDemo {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Random random = new Random();
+        /*Random random = new Random();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for(int i = 1; i<= 10; i++){
             executorService.execute(new ParseDate());
@@ -87,6 +87,9 @@ public class ThreadLocalDemo {
         Thread.sleep(1000);
         dateFormatThreadLocal = null;
         System.gc();
-        executorService.shutdown();
+        executorService.shutdown();*/
+        System.out.println(Integer.toBinaryString(-536870909));
+        System.out.println(Integer.toBinaryString(-536870911));
+
     }
 }

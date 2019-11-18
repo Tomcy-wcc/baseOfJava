@@ -1,5 +1,11 @@
 package thread;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
+
 public class SynchronizedDemo implements Runnable{
 
     public static Integer i = 0;
@@ -24,5 +30,8 @@ public class SynchronizedDemo implements Runnable{
         t1.join();
         t2.join();
         System.out.println(i);
+
     }
+
+
 }

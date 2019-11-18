@@ -19,9 +19,11 @@ enum Dog {
 }
 
 class Person {
-    private static Person person = null;
+
+    private static volatile Person person;
 
     private Person() {
+
     }
 
     public static Person getInstance() {

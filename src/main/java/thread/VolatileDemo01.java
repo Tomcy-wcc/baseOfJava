@@ -7,7 +7,7 @@ package thread;
  */
 public class VolatileDemo01 {
 
-    public static volatile boolean flag = false;//volatile保证线程之间的可见性
+    public static boolean flag = false;//volatile保证线程之间的可见性
 
     public static void main(String[] args) throws InterruptedException {
         new Thread(new Runnable() {

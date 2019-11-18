@@ -1,10 +1,13 @@
 package thread;
 
+import java.util.ArrayList;
+import java.util.Vector;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ThreadPoolReject {
 
-    public static class MyTask implements Runnable{
+    public static class MyTask implements Runnable {
 
         private String name;
 
@@ -18,9 +21,9 @@ public class ThreadPoolReject {
 
         @Override
         public void run() {
-            System.out.println(System.currentTimeMillis()+"--->"+Thread.currentThread().getId());
+            System.out.println(System.currentTimeMillis() + "--->" + Thread.currentThread().getId());
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -35,19 +38,15 @@ public class ThreadPoolReject {
     }
 
     public static void main(String[] args) throws InterruptedException {
+
         ExecutorService executorService = new ThreadPoolExecutor(
                 10,
                 10,
                 0,
                 TimeUnit.SECONDS,
-                new LinkedBlockingDeque<Runnable>(10),
+                new LinkedBlockingDeque<Runnable>(),
                 Executors.defaultThreadFactory(),
-                new RejectedExecutionHandler() {
-                    @Override
-                    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-                        System.out.println(r.toString() + " is discard");
-                    }
-                }){
+                new ThreadPoolExecutor.DiscardOldestPolicy()) {
             @Override
             protected void beforeExecute(Thread t, Runnable r) {
                 System.out.println(r.toString()+"开始执行任务");
@@ -58,20 +57,12 @@ public class ThreadPoolReject {
                 System.out.println(r.toString()+"执行任务完毕");
             }
 
-            @Override
-            protected void terminated() {
-                System.out.println("线程池退出");
-            }
-            
         };
 
-        for(int i = 1; i <= 100; i++){
-            executorService.execute(new MyTask("task"+i));
-            Thread.sleep(10);
+        for (int i = 1; i <= 100; i++) {
+            executorService.execute(new MyTask("task" + i));
         }
-        executorService.shutdown();
 
-        int i = Runtime.getRuntime().availableProcessors();
-        System.out.println(i);
+        executorService.shutdown();
     }
 }

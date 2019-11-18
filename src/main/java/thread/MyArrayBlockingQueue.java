@@ -1,5 +1,6 @@
 package thread;
 
+import java.util.BitSet;
 import java.util.Random;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -8,6 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 实现有界阻塞队列
  */
 public class MyArrayBlockingQueue {
+
     //一个重入锁，用于锁住队列
     ReentrantLock lock = new ReentrantLock();
 
