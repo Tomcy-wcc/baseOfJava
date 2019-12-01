@@ -15,24 +15,24 @@ public class VolatileDemo02 {
 
         Thread[] threads = new Thread[10];
 
-        for(int i = 0; i < threads.length; i++){
+        for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    for(int j = 1; j <= 1000; j++){
-                        try {
-                            lock.lock();
+                    lock.lock();
+                    try {
+                        for (int j = 1; j <= 1000; j++) {
                             n++;//不是原子操作, 所以要用锁保证原子操作
-                        }finally {
-                            lock.unlock();
                         }
+                    } finally {
+                        lock.unlock();
                     }
                 }
             });
             threads[i].start();
         }
 
-        for(Thread thread : threads){
+        for (Thread thread : threads) {
             thread.join();
         }
 

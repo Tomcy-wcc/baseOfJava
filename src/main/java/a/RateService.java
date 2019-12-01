@@ -9,12 +9,12 @@ import java.util.*;
 
 /**
  * RateService 汇率服务, 这个服务计算币种之间汇率. 比如说, 想知道 2个BTC 相当于多少个 ETH. 为笔试目的简化后需要实现两个方法:
- *
+ * <p>
  * 1. 提供来源币种, 转换后币种, 返回汇率
  * 2. 提供来源币种数量, 来源币种, 转换后币种, 返回转换后总量
- *
+ * <p>
  * marketData存储当前所有可用的汇率信息, 可以认为已经自动实时更新. 比如 { BTC_USDT: 10000 } 意思是 1个BTC 相当于 10000个USDT
- *
+ * <p>
  * 请参考测试用例. 注意测试用例必须全部通过
  */
 @SuppressWarnings("WeakerAccess")
@@ -36,13 +36,13 @@ public class RateService {
         System.out.println(allRate);
 
         //两个币种汇率算不出来
-        if(allRate.size() == 0){
+        if (allRate.size() == 0) {
             return null;
         }
 
         //将所有的汇率相乘得到两个货币之间的汇率
         BigDecimal result = BigDecimalBuilder.valueOf(1.0);
-        for(BigDecimal rate : allRate){
+        for (BigDecimal rate : allRate) {
             result = result.multiply(rate);
         }
         return result;
@@ -53,7 +53,7 @@ public class RateService {
         BigDecimal rate = getRate(from, to);
 
         // 兑换不了
-        if( rate == null){
+        if (rate == null) {
             return null;
         }
 
@@ -65,8 +65,6 @@ public class RateService {
         String from = "CNY";
         String to = "BTC";
         BigDecimal rate = getRate(from, to);
-        System.out.println(from+"-->"+to+"之间的汇率为 "+rate);
-
-
+        System.out.println(from + "-->" + to + "之间的汇率为 " + rate);
     }
 }
